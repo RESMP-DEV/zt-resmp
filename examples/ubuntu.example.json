@@ -1,0 +1,27 @@
+{
+  "network_id": "<16-digit ZeroTier network ID>",
+  "expected_node_id": "<10-digit ZeroTier node ID>",
+  "expected_address": "<managed IPv4 address>",
+  "expected_interface": "<usually zt...>",
+  "expected_route": "<managed IPv4 route, for example 10.10.0.0/16>",
+  "peers": [
+    {
+      "name": "mac-client",
+      "node_id": "<10-digit peer node ID>",
+      "address": "<peer managed IPv4 address>"
+    }
+  ],
+  "physical_probes": [
+    {
+      "name": "gateway",
+      "address": "<physical IPv4 gateway>"
+    }
+  ],
+  "profile": {
+    "settings": {}
+  },
+  "tailscale_forbidden_prefixes": [
+    "<ZeroTier managed route>",
+    "<physical LAN route>"
+  ]
+}

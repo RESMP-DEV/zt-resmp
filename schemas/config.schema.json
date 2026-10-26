@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/RESMP-DEV/zt-resmp/schemas/config.schema.json",
+  "title": "zt-resmp network profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["network_id"],
+  "properties": {
+    "network_id": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{16}$",
+      "description": "Sixteen-character hexadecimal ZeroTier network ID"
+    },
+    "expected_node_id": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{10}$",
+      "description": "Ten-character hexadecimal local ZeroTier node ID"
+    },
+    "expected_address": {
+      "type": "string",
+      "description": "Expected managed IP address, without a prefix length"
+    },
+    "expected_interface": {
+      "type": "string",
+      "description": "Expected kernel interface name"
+    },
+    "expected_route": {
+      "type": "string",
+      "description": "Expected managed IP network such as 10.10.0.0/16"
+    },
+    "allow_global": {
+      "type": "boolean",
+      "default": false
+    },
+    "allow_default": {
+      "type": "boolean",
+      "default": false
+    },
+    "allow_dns": {
+      "type": "boolean",
+      "default": false
+    },
+    "peers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/peer" }
+    },
+    "physical_probes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/probe" }
+    },
+    "profile": {
+      "type": "object",
+      "description": "Keys merged into ZeroTier local.conf by explicit profile apply"
+    },
+    "require_tailscale": {
+      "type": "boolean",
+      "default": false
+    },
+    "tailscale_forbidden_prefixes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "IP network that Tailscale routes must not overlap"
+      }
+    }
+  },
+  "$defs": {
+    "peer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "address"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "address": {
+          "type": "string",
+          "description": "Peer managed IP address"
+        },
+        "node_id": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{10}$"
+        }
+      }
+    },
+    "probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "address"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "address": {
+          "type": "string",
+          "description": "Physical IP address to probe only when requested"
+        }
+      }
+    }
+  }
+}
